@@ -15,6 +15,7 @@ public typealias JsonConvertBlock = ((_ object: AnyObject, _ andKey: String) -> 
 public class JsonConfig {
 	internal var fieldManualParsing: [String: JsonConvertBlock] = Dictionary()
 	internal var dataTypeManualParsing: [String: JsonConvertBlock] = Dictionary()
+	internal var pathManualParsing: [String: JsonConvertBlock] = Dictionary()
 	
 	public init() {
 		
@@ -36,5 +37,14 @@ public class JsonConfig {
 	///   - block: the conversion block
 	public func set(forDataType type: String, withConversionBlock block: @escaping JsonConvertBlock) {
 		self.dataTypeManualParsing[type] = block
+	}
+	
+	/// Sets the conversion block for a given path of the json.
+	///
+	/// - Parameters:
+	///   - path: the path string, ex: "user_info.address.street"
+	///   - block: the conversion block
+	public func set(forPath path: String, withConversionBlock block: @escaping JsonConvertBlock) {
+		self.pathManualParsing[path] = block
 	}
 }
